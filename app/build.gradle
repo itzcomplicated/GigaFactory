@@ -55,4 +55,16 @@ dependencies {
 
     //Debug Bridge for Android STETHO
     compile 'com.facebook.stetho:stetho:1.5.0'
+
+    //View Binding BUTTERKNIFE
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    //Network libraries RETROFIT & PICASSO
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
 }
