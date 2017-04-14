@@ -49,6 +49,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:design:25.2.0'
+
     //Logging Library TIMBER
     compile 'com.jakewharton.timber:timber:4.5.1'
+
+    //Debug Bridge for Android STETHO
+    compile 'com.facebook.stetho:stetho:1.5.0'
 }

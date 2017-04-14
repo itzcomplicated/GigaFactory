@@ -1,8 +1,9 @@
-package com.tca.daggersample.gigafactory;
+package com.tca.gigafactory;
 
 import android.app.Application;
 
-import com.tca.daggersample.gigafactory.tools.timber.ReleaseTree;
+import com.facebook.stetho.Stetho;
+import com.tca.gigafactory.timber.ReleaseTree;
 
 import timber.log.Timber;
 
@@ -23,6 +24,7 @@ public class GigaApplication extends Application{
                     return super.createStackElementTag(element)+ "::" + element.getMethodName()+ "::" + element.getLineNumber();
                 }
             });
+            Stetho.initializeWithDefaults(this);
         }
         else
         {

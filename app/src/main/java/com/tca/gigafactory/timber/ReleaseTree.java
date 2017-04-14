@@ -1,4 +1,4 @@
-package com.tca.daggersample.gigafactory.tools.timber;
+package com.tca.gigafactory.timber;
 
 import android.util.Log;
 
@@ -22,7 +22,7 @@ public class ReleaseTree extends Timber.Tree {
     protected void log(int priority, String tag, String message, Throwable t) {
 
         /*************************************************
-         * You can do what ever tou want with the log.   *
+         * You can do what ever You want with the log.   *
          * Like Uploading to another tool like fire base *
          * to monitor production issues.                 *
          *************************************************/
