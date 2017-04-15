@@ -1,5 +1,6 @@
 package com.tca.gigafactory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.tca.gigafactory.github.EventsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,12 @@ public class WelcomeActivity extends AppCompatActivity {
     void onFabClick(View view){
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    @OnClick(R.id.button_github)
+    void onGithubSelected(){
+        Intent githubIntent= new Intent(this,EventsActivity.class);
+        startActivity(githubIntent);
     }
 
     @Override

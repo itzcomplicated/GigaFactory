@@ -1,4 +1,4 @@
-package com.tca.gigafactory.timber;
+package com.tca.gigafactory.tools.timber;
 
 import android.util.Log;
 

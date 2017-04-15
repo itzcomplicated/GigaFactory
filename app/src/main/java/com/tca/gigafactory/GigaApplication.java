@@ -3,7 +3,7 @@ package com.tca.gigafactory;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
-import com.tca.gigafactory.timber.ReleaseTree;
+import com.tca.gigafactory.tools.timber.ReleaseTree;
 
 import timber.log.Timber;
 
