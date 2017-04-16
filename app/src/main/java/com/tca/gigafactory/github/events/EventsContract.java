@@ -1,4 +1,4 @@
-package com.tca.gigafactory.github;
+package com.tca.gigafactory.github.events;
 
 import com.tca.gigafactory.github.api.models.Event;
 import com.tca.gigafactory.tools.mvp.BasePresenter;

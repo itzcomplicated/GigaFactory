@@ -1,14 +1,14 @@
-package com.tca.gigafactory.github;
+package com.tca.gigafactory.github.events;
 
 import com.tca.gigafactory.github.api.GithubServices;
 import com.tca.gigafactory.github.api.models.Event;
+import com.tca.gigafactory.tools.Logger;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 /**
  * Created by TCA on 15-04-2017.
@@ -18,20 +18,25 @@ public class EventsPresenter implements EventsContract.Presenter {
 
 
     private final GithubServices githubServices;
-    private final EventsContract.View view;
-    private final Timber timber;
+    private EventsContract.View view;
+    private final Logger logger;
 
 
-    public EventsPresenter(GithubServices githubServices, EventsContract.View view, Timber timber){
+    public EventsPresenter(GithubServices githubServices, EventsContract.View view, Logger logger){
         this.githubServices=githubServices;
         this.view=view;
-        this.timber=timber;
+        this.logger=logger;
     }
 
 
     @Override
     public void start() {
        loadEvents();
+    }
+
+    @Override
+    public void stop() {
+        this.view=null;
     }
 
     @Override
@@ -47,12 +52,12 @@ public class EventsPresenter implements EventsContract.Presenter {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if(response.body()!=null){
-                    timber.i("Received response with " + response.body().size() + " elements");
+                    logger.logInfo("Received response with " + response.body().size() + " elements");
                     view.hideProgress();
                     view.showEvents(response.body());
                 }
                 else {
-                    timber.i("Response is empty");
+                    logger.logInfo("Response is empty");
                     view.hideProgress();
                     view.loadingFailedMessage();
                 }
@@ -61,7 +66,7 @@ public class EventsPresenter implements EventsContract.Presenter {
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-                timber.i("Some thing went wrong");
+                logger.logInfo("Some thing went wrong");
                 view.hideProgress();
                 view.loadingFailedMessage();
 

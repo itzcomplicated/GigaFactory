@@ -7,4 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="list_samples">List of samples.</string>
     <string name="github">Github</string>
+    <string name="events_load_failed_message">Failed to load Events</string>
+    <string name="ok">Ok</string>
+    <string name="loading_message">Loading! Please wait.</string>
 </resources>

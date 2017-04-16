@@ -1,4 +1,4 @@
-package com.tca.gigafactory.github;
+package com.tca.gigafactory.github.events;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,13 +6,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.tca.gigafactory.R;
 import com.tca.gigafactory.github.api.models.Event;
+import com.tca.gigafactory.tools.ImageLoader;
+import com.tca.gigafactory.tools.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * Created by TCA on 15-04-2017.
@@ -21,8 +21,8 @@ import timber.log.Timber;
 public class EventListItem extends FrameLayout {
 
     private final Context context;
-    private final Picasso picasso;
-    private final Timber timber;
+    private final ImageLoader imageLoader;
+    private final Logger logger;
 
     @BindView(R.id.imageViewAvatar)
     ImageView imageViewAvatar;
@@ -34,16 +34,17 @@ public class EventListItem extends FrameLayout {
     TextView textViewContent;
 
 
-    public EventListItem(Context context, Picasso picasso, Timber timber){
+    public EventListItem(Context context, ImageLoader imageLoader, Logger logger){
         super(context);
         this.context=context;
-        this.picasso=picasso;
-        this.timber=timber;
+        this.imageLoader=imageLoader;
+        this.logger=logger;
         inflate(getContext(), R.layout.list_item_event, this);
         ButterKnife.bind(this);
     }
 
     public void loadEvent(Event event){
+        imageLoader.loadImage(event.getActor().getAvatarUrl(),imageViewAvatar);
         textViewTitle.setText(event.getType());
         textViewContent.setText(event.getId() + " " + event.getCreatedAt());
     }

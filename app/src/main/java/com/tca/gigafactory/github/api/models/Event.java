@@ -20,6 +20,12 @@ public class Event {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("actor")
+    @Expose
+    private Actor actor;
+    @SerializedName("repo")
+    @Expose
+    private Repo repo;
 
     public String getId() {
         return id;
@@ -51,5 +57,21 @@ public class Event {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Actor getActor() {
+        return actor;
+    }
+
+    public void setActor(Actor actor) {
+        this.actor = actor;
+    }
+
+    public Repo getRepo() {
+        return repo;
+    }
+
+    public void setRepo(Repo repo) {
+        this.repo = repo;
     }
 }

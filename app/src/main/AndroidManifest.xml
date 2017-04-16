@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".github.EventsActivity"
+            android:name=".github.events.EventsActivity"
             android:label="@string/title_activity_events"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

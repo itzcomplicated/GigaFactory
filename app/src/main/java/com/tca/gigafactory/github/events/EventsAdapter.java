@@ -1,17 +1,16 @@
-package com.tca.gigafactory.github;
+package com.tca.gigafactory.github.events;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.squareup.picasso.Picasso;
 import com.tca.gigafactory.github.api.models.Event;
+import com.tca.gigafactory.tools.ImageLoader;
+import com.tca.gigafactory.tools.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Created by TCA on 15-04-2017.
@@ -22,13 +21,13 @@ public class EventsAdapter extends BaseAdapter {
 
     private List<Event> events=new ArrayList<>();
     private final Context context;
-    private final Picasso picasso;
-    private final Timber timber;
+    private final ImageLoader imageLoader;
+    private final Logger logger;
 
-    public EventsAdapter(Context context, Picasso picasso, Timber timber){
+    public EventsAdapter(Context context, ImageLoader imageLoader, Logger logger){
         this.context=context;
-        this.picasso=picasso;
-        this.timber=timber;
+        this.imageLoader=imageLoader;
+        this.logger=logger;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class EventsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         EventListItem eventListItem;
         if(convertView == null) {
-            eventListItem = new EventListItem(context, picasso, timber);
+            eventListItem = new EventListItem(context, imageLoader, logger);
         } else {
             eventListItem = EventListItem.class.cast(convertView);
         }
