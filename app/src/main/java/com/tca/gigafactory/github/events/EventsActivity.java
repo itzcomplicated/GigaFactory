@@ -15,8 +15,13 @@ import com.tca.gigafactory.github.api.GithubServices;
 import com.tca.gigafactory.github.api.models.Event;
 import com.tca.gigafactory.tools.ImageLoader;
 import com.tca.gigafactory.tools.Logger;
+import com.tca.gigafactory.tools.di.componets.DaggerEventsActivityComponent;
+import com.tca.gigafactory.tools.di.componets.EventsActivityComponent;
+import com.tca.gigafactory.tools.di.modules.events.EventsActivityModule;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,11 +40,14 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
 
     EventsContract.Presenter presenter;
 
-    private GithubServices githubServices;
+    @Inject
+    GithubServices githubServices;
 
-    private ImageLoader imageLoader;
+    @Inject
+    ImageLoader imageLoader;
 
-    private Logger logger;
+    @Inject
+    Logger logger;
 
 
     @Override
@@ -51,13 +59,12 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
         setSupportActionBar(toolbar);
 
         GigaApplication gigaApplication=(GigaApplication)getApplication();
+        EventsActivityComponent component = DaggerEventsActivityComponent.builder()
+                .eventsActivityModule(new EventsActivityModule(this))
+                .gigaApplicationComponent(gigaApplication.getGigaApplicationComponent())
+                .build();
 
-        githubServices=gigaApplication.getGithubServices();
-
-        imageLoader=gigaApplication.getImageLoader();
-
-        logger=gigaApplication.getLogger();
-
+        component.injectEventsActivity(this);
 
         eventsAdapter = new EventsAdapter(this, imageLoader,logger);
         listViewEvents.setAdapter(eventsAdapter);
