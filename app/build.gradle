@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
+        Signer {
+            keyAlias 'NGU'
+            keyPassword 'jabjab'
+            storeFile file('C:/Work/Keystore/giga_keystore.jks')
+            storePassword 'jabjab'
+        }
     }
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
