@@ -1,5 +1,6 @@
 package com.tca.gigafactory.tools.timber;
 
+import com.tca.gigafactory.BuildConfig;
 import com.tca.gigafactory.tools.Logger;
 
 import timber.log.Timber;
@@ -9,6 +10,22 @@ import timber.log.Timber;
  */
 
 public class TimberLogger implements Logger {
+
+    public TimberLogger(){
+        if(BuildConfig.DEBUG)
+        {
+            Timber.plant(new Timber.DebugTree(){
+                @Override
+                protected String createStackElementTag(StackTraceElement element) {
+                    return super.createStackElementTag(element)+ "::" + element.getMethodName()+ "::" + element.getLineNumber();
+                }
+            });
+        }
+        else
+        {
+            Timber.plant(new ReleaseTree());
+        }
+    }
 
     @Override
     public void logInfo(String info) {

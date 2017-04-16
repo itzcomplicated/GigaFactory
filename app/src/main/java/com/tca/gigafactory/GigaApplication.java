@@ -3,9 +3,12 @@ package com.tca.gigafactory;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
-import com.tca.gigafactory.tools.timber.ReleaseTree;
-
-import timber.log.Timber;
+import com.tca.gigafactory.github.api.GithubServices;
+import com.tca.gigafactory.tools.ImageLoader;
+import com.tca.gigafactory.tools.Logger;
+import com.tca.gigafactory.tools.di.DaggerGigaApplicationComponent;
+import com.tca.gigafactory.tools.di.componets.GigaApplicationComponent;
+import com.tca.gigafactory.tools.di.modules.ContextModule;
 
 /**
  * Created by TCA on 13-04-2017.
@@ -13,24 +16,27 @@ import timber.log.Timber;
 
 public class GigaApplication extends Application{
 
+    private GithubServices githubServices;
+
+    private ImageLoader imageLoader;
+
+    private Logger logger;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        if(BuildConfig.DEBUG)
-        {
-            Timber.plant(new Timber.DebugTree(){
-                @Override
-                protected String createStackElementTag(StackTraceElement element) {
-                    return super.createStackElementTag(element)+ "::" + element.getMethodName()+ "::" + element.getLineNumber();
-                }
-            });
+        if(BuildConfig.DEBUG){
             Stetho.initializeWithDefaults(this);
         }
-        else
-        {
-            Timber.plant(new ReleaseTree());
-        }
-        Timber.d("Loading up Giga Factory");
-        Timber.e("This in just for testing timber. NOT AN ERROR :)");
+
+        GigaApplicationComponent component= DaggerGigaApplicationComponent.builder()
+                .contextModule(new ContextModule(this))
+                .build();
+
+        githubServices=component.getGithubServices();
+        imageLoader=component.getImageLoader();
+        logger=component.getLogger();
     }
+
+
 }

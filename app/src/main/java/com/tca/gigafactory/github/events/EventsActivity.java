@@ -9,28 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
+import com.tca.gigafactory.GigaApplication;
 import com.tca.gigafactory.R;
 import com.tca.gigafactory.github.api.GithubServices;
 import com.tca.gigafactory.github.api.models.Event;
 import com.tca.gigafactory.tools.ImageLoader;
 import com.tca.gigafactory.tools.Logger;
-import com.tca.gigafactory.tools.picasso.PicassoImageLoader;
-import com.tca.gigafactory.tools.timber.TimberLogger;
 
-import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EventsActivity extends AppCompatActivity  implements EventsContract.View{
 
@@ -46,6 +35,13 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
 
     EventsContract.Presenter presenter;
 
+    private GithubServices githubServices;
+
+    private ImageLoader imageLoader;
+
+    private Logger logger;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,49 +50,17 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        final Logger logger=new TimberLogger();
+        GigaApplication gigaApplication=(GigaApplication)getApplication();
 
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                logger.logInfo(message);
-            }
-        });
+        githubServices=gigaApplication.getGithubServices();
 
-        File fileToCache= new File(getCacheDir(),"giga_network_cache");
-        final int cacheSizeInMb=5*1024*1024;
-        Cache cache=new Cache(fileToCache,cacheSizeInMb);
+        imageLoader=gigaApplication.getImageLoader();
 
-        OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .cache(cache)
-                .build();
-
-        final Picasso picasso =new Picasso.Builder(this)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
-
-        final ImageLoader imageLoader=new PicassoImageLoader(picasso);
+        logger=gigaApplication.getLogger();
 
 
         eventsAdapter = new EventsAdapter(this, imageLoader,logger);
         listViewEvents.setAdapter(eventsAdapter);
-
-
-        GsonBuilder gsonBuilder=new GsonBuilder();
-        Gson gson=gsonBuilder.create();
-        GsonConverterFactory gsonConverterFactory=GsonConverterFactory.create(gson);
-
-
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .client(okHttpClient)
-                .addConverterFactory(gsonConverterFactory)
-                .build();
-
-        GithubServices githubServices = retrofit.create(GithubServices.class);
 
         presenter= new EventsPresenter(githubServices,this, logger);
 

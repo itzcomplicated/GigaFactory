@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient;
  * Created by TCA on 16-04-2017.
  */
 
-@Module
+@Module(includes = {ContextModule.class,NetworkModule.class})
 public class ImageLoaderModule {
 
     @Provides

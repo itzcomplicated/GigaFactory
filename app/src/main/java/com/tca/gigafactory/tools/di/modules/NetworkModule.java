@@ -5,6 +5,7 @@ package com.tca.gigafactory.tools.di.modules;
  */
 
 import android.content.Context;
+
 import com.tca.gigafactory.tools.Logger;
 
 import java.io.File;
@@ -14,20 +15,9 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module
+@Module(includes = {ContextModule.class,JsonModule.class,LoggerModule.class})
 public class NetworkModule {
-
-    @Provides
-    public Retrofit providesRetrofit(String baseUrl, OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory){
-      return new Retrofit.Builder()
-                .baseUrl("baseUrl")
-                .client(okHttpClient)
-                .addConverterFactory(gsonConverterFactory)
-                .build();
-    }
 
     @Provides
     public HttpLoggingInterceptor.Logger providesHttpLoggingInterceptorLogger(final Logger logger){
