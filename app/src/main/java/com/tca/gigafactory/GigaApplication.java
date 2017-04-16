@@ -38,5 +38,15 @@ public class GigaApplication extends Application{
         logger=component.getLogger();
     }
 
+    public GithubServices getGithubServices() {
+        return githubServices;
+    }
 
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
 }
