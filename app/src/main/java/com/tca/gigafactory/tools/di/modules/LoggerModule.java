@@ -1,6 +1,7 @@
 package com.tca.gigafactory.tools.di.modules;
 
 import com.tca.gigafactory.tools.Logger;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 import com.tca.gigafactory.tools.timber.TimberLogger;
 
 import dagger.Module;
@@ -14,6 +15,7 @@ import dagger.Provides;
 public class LoggerModule {
 
     @Provides
+    @ApplicationScope
     public Logger providesLogger(){
         return new TimberLogger();
     }

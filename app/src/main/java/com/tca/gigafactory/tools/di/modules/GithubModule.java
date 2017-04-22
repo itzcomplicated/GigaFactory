@@ -1,6 +1,7 @@
 package com.tca.gigafactory.tools.di.modules;
 
 import com.tca.gigafactory.github.api.GithubServices;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GithubModule {
 
     @Provides
+    @ApplicationScope
     public Retrofit providesRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory){
         return new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
@@ -25,6 +27,7 @@ public class GithubModule {
     }
 
     @Provides
+    @ApplicationScope
     public GithubServices providesGithubServices(Retrofit retrofit){
         return retrofit.create(GithubServices.class);
     }

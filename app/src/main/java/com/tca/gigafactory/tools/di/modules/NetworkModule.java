@@ -7,6 +7,7 @@ package com.tca.gigafactory.tools.di.modules;
 import android.content.Context;
 
 import com.tca.gigafactory.tools.Logger;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 
 import java.io.File;
 
@@ -20,6 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class NetworkModule {
 
     @Provides
+    @ApplicationScope
     public HttpLoggingInterceptor.Logger providesHttpLoggingInterceptorLogger(final Logger logger){
         return new HttpLoggingInterceptor.Logger() {
             @Override
@@ -30,17 +32,22 @@ public class NetworkModule {
     }
 
     @Provides
+    @ApplicationScope
     public HttpLoggingInterceptor providesHttpLoggingInterceptor(HttpLoggingInterceptor.Logger logger){
-        return new HttpLoggingInterceptor(logger);
+        HttpLoggingInterceptor interceptor= new HttpLoggingInterceptor(logger);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        return interceptor;
     }
 
 
     @Provides
+    @ApplicationScope
     public File providesFile(Context context){
         return  new File(context.getCacheDir(),"giga_network_cache");
     }
 
     @Provides
+    @ApplicationScope
     public Cache providesCache(File fileToStoreCache)  {
         final int cacheSizeInMb=5*1024*1024;
         Cache cache=new Cache(fileToStoreCache,cacheSizeInMb);
@@ -48,6 +55,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @ApplicationScope
     public OkHttpClient providesOkHttpClient(HttpLoggingInterceptor interceptor,Cache cache){
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)

@@ -2,6 +2,8 @@ package com.tca.gigafactory.tools.di.modules;
 
 import android.content.Context;
 
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,6 +21,7 @@ public class ContextModule {
     }
 
     @Provides
+    @ApplicationScope
     public Context context() {
         return context;
     }

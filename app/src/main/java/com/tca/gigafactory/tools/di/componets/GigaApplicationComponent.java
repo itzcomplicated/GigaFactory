@@ -6,6 +6,7 @@ import com.tca.gigafactory.tools.Logger;
 import com.tca.gigafactory.tools.di.modules.GithubModule;
 import com.tca.gigafactory.tools.di.modules.ImageLoaderModule;
 import com.tca.gigafactory.tools.di.modules.LoggerModule;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 
 import dagger.Component;
 
@@ -13,6 +14,7 @@ import dagger.Component;
  * Created by TCA on 16-04-2017.
  */
 
+@ApplicationScope
 @Component(modules = {GithubModule.class, ImageLoaderModule.class, LoggerModule.class})
 public interface GigaApplicationComponent {
 

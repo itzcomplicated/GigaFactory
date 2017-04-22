@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 import com.tca.gigafactory.tools.ImageLoader;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 import com.tca.gigafactory.tools.picasso.PicassoImageLoader;
 
 import dagger.Module;
@@ -19,6 +20,7 @@ import okhttp3.OkHttpClient;
 public class ImageLoaderModule {
 
     @Provides
+    @ApplicationScope
     public Picasso providesPicasso(Context context, OkHttpClient okHttpClient){
         Picasso picasso =new Picasso.Builder(context)
                 .downloader(new OkHttp3Downloader(okHttpClient))
@@ -27,6 +29,7 @@ public class ImageLoaderModule {
     }
 
     @Provides
+    @ApplicationScope
     public ImageLoader providesImageLoader(Picasso picasso){
         return new PicassoImageLoader(picasso);
     }

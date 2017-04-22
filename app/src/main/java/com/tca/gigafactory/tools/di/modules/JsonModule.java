@@ -2,6 +2,7 @@ package com.tca.gigafactory.tools.di.modules;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tca.gigafactory.tools.di.scope.ApplicationScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,12 +21,14 @@ public class JsonModule {
     }
 
     @Provides
+    @ApplicationScope
     public Gson providesGson(GsonBuilder gsonBuilder){
         Gson gson=gsonBuilder.create();
         return gson;
     }
 
     @Provides
+    @ApplicationScope
     public GsonConverterFactory providesGsonConverterFactory(Gson gson){
         return GsonConverterFactory.create(gson);
     }
