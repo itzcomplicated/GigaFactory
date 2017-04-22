@@ -16,7 +16,7 @@ import com.tca.gigafactory.github.api.models.Event;
 import com.tca.gigafactory.tools.ImageLoader;
 import com.tca.gigafactory.tools.Logger;
 import com.tca.gigafactory.tools.di.componets.DaggerEventsActivityComponent;
-import com.tca.gigafactory.tools.di.componets.EventsActivityComponent;
+import com.tca.gigafactory.tools.di.componets.events.EventsActivityComponent;
 import com.tca.gigafactory.tools.di.modules.events.EventsActivityModule;
 
 import java.util.List;

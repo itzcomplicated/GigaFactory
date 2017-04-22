@@ -1,4 +1,4 @@
-package com.tca.gigafactory.tools.di.scope;
+package com.tca.gigafactory.tools.di.scope.events;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
