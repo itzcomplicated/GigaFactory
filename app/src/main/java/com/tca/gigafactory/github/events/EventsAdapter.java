@@ -12,6 +12,8 @@ import com.tca.gigafactory.tools.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by TCA on 15-04-2017.
  */
@@ -24,6 +26,7 @@ public class EventsAdapter extends BaseAdapter {
     private final ImageLoader imageLoader;
     private final Logger logger;
 
+    @Inject
     public EventsAdapter(Context context, ImageLoader imageLoader, Logger logger){
         this.context=context;
         this.imageLoader=imageLoader;

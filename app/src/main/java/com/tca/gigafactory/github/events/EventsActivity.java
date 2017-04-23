@@ -69,8 +69,6 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
 
         component.injectEventsActivity(this);
         listViewEvents.setAdapter(eventsAdapter);
-
-
     }
 
     @Override
@@ -119,7 +117,8 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
 
     @Override
     public void showProgress() {
-        if(progressDialog==null) {
+        if(progressDialog!=null) {
+            progressDialog.setTitle(getString(R.string.loading_message));
             progressDialog.show();
         }
 

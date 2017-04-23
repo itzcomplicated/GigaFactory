@@ -6,6 +6,8 @@ import com.tca.gigafactory.tools.Logger;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +26,7 @@ public class EventsPresenter implements EventsContract.Presenter {
     Call<List<Event>> eventsCall;
 
 
+    @Inject
     public EventsPresenter(GithubServices githubServices, EventsContract.View view, Logger logger){
         this.githubServices=githubServices;
         this.view=view;
