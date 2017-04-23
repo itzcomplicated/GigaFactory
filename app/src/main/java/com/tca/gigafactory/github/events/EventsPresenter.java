@@ -21,6 +21,8 @@ public class EventsPresenter implements EventsContract.Presenter {
     private EventsContract.View view;
     private final Logger logger;
 
+    Call<List<Event>> eventsCall;
+
 
     public EventsPresenter(GithubServices githubServices, EventsContract.View view, Logger logger){
         this.githubServices=githubServices;
@@ -36,13 +38,18 @@ public class EventsPresenter implements EventsContract.Presenter {
 
     @Override
     public void stop() {
+
         this.view=null;
+        if(null!=eventsCall){
+            eventsCall.cancel();
+        }
+
     }
 
     @Override
     public void loadEvents() {
 
-        Call<List<Event>> eventsCall=githubServices.listPublicEvents();
+        eventsCall=githubServices.listPublicEvents();
 
         view.showProgress();
 

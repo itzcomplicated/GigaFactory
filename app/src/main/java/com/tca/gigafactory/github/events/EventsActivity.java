@@ -15,7 +15,7 @@ import com.tca.gigafactory.github.api.GithubServices;
 import com.tca.gigafactory.github.api.models.Event;
 import com.tca.gigafactory.tools.ImageLoader;
 import com.tca.gigafactory.tools.Logger;
-import com.tca.gigafactory.tools.di.componets.DaggerEventsActivityComponent;
+import com.tca.gigafactory.tools.di.componets.events.DaggerEventsActivityComponent;
 import com.tca.gigafactory.tools.di.componets.events.EventsActivityComponent;
 import com.tca.gigafactory.tools.di.modules.events.EventsActivityModule;
 
@@ -34,10 +34,13 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
     @BindView(R.id.list_view_events)
     ListView listViewEvents;
 
+    @Inject
     ProgressDialog progressDialog;
 
+    @Inject
     EventsAdapter eventsAdapter;
 
+    @Inject
     EventsContract.Presenter presenter;
 
     @Inject
@@ -65,11 +68,7 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
                 .build();
 
         component.injectEventsActivity(this);
-
-        eventsAdapter = new EventsAdapter(this, imageLoader,logger);
         listViewEvents.setAdapter(eventsAdapter);
-
-        presenter= new EventsPresenter(githubServices,this, logger);
 
 
     }
@@ -84,7 +83,6 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
     protected void onDestroy() {
         super.onDestroy();
         presenter.stop();
-        presenter=null;
     }
 
     @Override
@@ -122,10 +120,9 @@ public class EventsActivity extends AppCompatActivity  implements EventsContract
     @Override
     public void showProgress() {
         if(progressDialog==null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle(getString(R.string.loading_message));
+            progressDialog.show();
         }
-        progressDialog.show();
+
     }
 
     @Override
