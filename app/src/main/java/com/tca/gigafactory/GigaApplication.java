@@ -25,6 +25,7 @@ public class GigaApplication extends Application{
         component = DaggerGigaApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
+        component.getLogger().logInfo("Hai Application started");
     }
 
     public GigaApplicationComponent getGigaApplicationComponent() {
