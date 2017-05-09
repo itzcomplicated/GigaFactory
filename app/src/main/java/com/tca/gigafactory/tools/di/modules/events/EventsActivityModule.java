@@ -39,7 +39,7 @@ public class EventsActivityModule {
 
     @Provides
     public EventsContract.Presenter providesEventsPresenter(GithubServices githubServices, Logger logger){
-        EventsPresenter presenter= new EventsPresenter(githubServices,eventsActivity, logger);
+        EventsPresenter presenter= new EventsPresenter(githubServices, eventsActivity, logger);
         return presenter;
     }
 }
